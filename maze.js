@@ -65,7 +65,7 @@ function MovePlayer(event){
             if (player.x > 0) player.x--;
             break;
         default:
-            return;
+            break;
     }
     if(maze[player.y][player.x] === 1){
         player.x = prevX;
