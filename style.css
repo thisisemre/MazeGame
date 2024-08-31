@@ -1,0 +1,11 @@
+#maze {
+    border-top: 20px solid black;
+    border-left: 20px solid black;
+}
+
+body {
+    background-color: beige;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
