@@ -8,3 +8,10 @@ This project is a simple JavaScript-based maze game that generates a random maze
 
 - The player starts at the top-left corner (0,0) and navigates through the maze using the arrow keys. The goal is to reach the bottom-right corner where the green exit square is located.
 
+## Development Roadmap
+
+1. **Responsive Design Implementation**: A planned update will dynamically adjust the maze and controls to fit mobile screen sizes.
+2. **Cell Size Adjustment**: Cell sizes will be adjusted based on screen dimensions to ensure proper appearance on all devices.
+3. **User Interface Improvements**: The control panel and other UI elements will be optimized for mobile devices.
+
+Follow the progress of these updates in the project issues or contribute directly to the codebase.
