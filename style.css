@@ -169,3 +169,70 @@ canvas {
 .game-info i {
     color: var(--secondary-color);
 }
+
+/* Add these styles for the victory modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    animation: modalPop 0.3s ease-out;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 90%;
+    margin: 20px;
+}
+
+.modal-content h2 {
+    color: #2196F3;
+    font-size: 28px;
+    margin: 0 0 20px 0;
+}
+
+.stats {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.play-again-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.play-again-btn:hover {
+    background-color: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+@keyframes modalPop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

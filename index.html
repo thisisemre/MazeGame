@@ -6,6 +6,7 @@
     <title>Random Maze Game</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <div class="game-info">
@@ -23,6 +24,20 @@
         </div>
         <button id="down">↓</button>
     </div>
+    
+    <!-- Add Victory Modal -->
+    <div id="victoryModal" class="modal">
+        <div class="modal-content">
+            <h2>🎉 Congratulations! 🎉</h2>
+            <p>You've completed the maze!</p>
+            <div class="stats">
+                <p>Time: <span id="finalTime">0s</span></p>
+                <p>Steps: <span id="finalSteps">0</span></p>
+            </div>
+            <button id="playAgain" class="play-again-btn">Play Again</button>
+        </div>
+    </div>
+    
     <script src="maze.js"></script>
 </body>
 </html>

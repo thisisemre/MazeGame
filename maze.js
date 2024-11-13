@@ -146,8 +146,7 @@ function MovePlayer(event){
     if(player.x === COLUMNS_COUNT-2 && player.y === ROWS_COUNT-2){
         clearInterval(gameTimer);
         const timeSpent = Math.floor((Date.now() - startTime) / 1000);
-        alert(`Congratulations! You won!\nTime: ${timeSpent} seconds\nSteps: ${steps}`);
-        location.reload();
+        showVictoryScreen(timeSpent, steps);
     }
     
     drawMaze();
@@ -238,6 +237,51 @@ function init(){
     document.addEventListener("keydown", MovePlayer);
     setupTouchControls();
     updateGameInfo();
+}
+
+function showVictoryScreen(timeSpent, steps) {
+    const modal = document.getElementById('victoryModal');
+    document.getElementById('finalTime').textContent = timeSpent + 's';
+    document.getElementById('finalSteps').textContent = steps;
+    
+    // Show modal without clearing the canvas
+    modal.style.display = 'flex';
+    
+    // Start confetti
+    const duration = 3000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 2001 };
+
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        
+        confetti({
+            ...defaults,
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+        });
+        confetti({
+            ...defaults,
+            particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+        });
+    }, 250);
+
+    // Add event listener to play again button
+    document.getElementById('playAgain').onclick = function() {
+        modal.style.display = 'none';
+        location.reload();
+    };
 }
 
 init();
