@@ -8,6 +8,8 @@ body {
     background-color: #f0f0f0;
     touch-action: none;
     position: relative;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .maze-container {
@@ -55,8 +57,10 @@ canvas {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     user-select: none;
+    -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
     transition: all 0.2s ease;
+    touch-action: manipulation;
 }
 
 .controls button:hover {
