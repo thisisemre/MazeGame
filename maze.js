@@ -20,6 +20,11 @@ let steps = 0;
 let startTime = null;
 let gameTimer = null;
 
+function preventZoom(e) {
+    e.preventDefault();
+    document.body.style.touchAction = 'none';
+}
+
 function initMaze(){
     // First fill everything with walls
     for(let i = 0; i < COLUMNS_COUNT; i++){
@@ -220,18 +225,18 @@ function updateGameInfo() {
 }
 
 function init(){
+    document.addEventListener('touchstart', preventZoom, { passive: false });
+    document.addEventListener('touchmove', preventZoom, { passive: false });
+    document.addEventListener('dblclick', (e) => e.preventDefault());
+    
     setVH();
     window.addEventListener('resize', setVH);
-    
     makeRandomMaze();
     resizeCanvas();
-    
     window.addEventListener('load', resizeCanvas);
     window.addEventListener('resize', resizeCanvas);
     document.addEventListener("keydown", MovePlayer);
     setupTouchControls();
-    
-    // Initialize game info
     updateGameInfo();
 }
 

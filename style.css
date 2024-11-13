@@ -86,7 +86,9 @@ canvas {
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
     transition: all 0.2s ease;
-    touch-action: manipulation;
+    touch-action: none;
+    -ms-touch-action: none;
+    -webkit-touch-callout: none;
 }
 
 .controls button:hover {
