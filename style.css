@@ -1,15 +1,33 @@
+:root {
+    --vh: 1vh;
+}
+
+html {
+    height: 100%;
+    height: calc(var(--vh) * 100);
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
 body {
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    height: 100%;
+    height: calc(var(--vh) * 100);
+    width: 100%;
     background-color: #f0f0f0;
     touch-action: none;
-    position: relative;
+    position: fixed;
     user-select: none;
     -webkit-user-select: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
 }
 
 .maze-container {

@@ -183,7 +183,15 @@ function setupTouchControls() {
     }
 }
 
+function setVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
 function init(){
+    setVH();
+    window.addEventListener('resize', setVH);
+    
     makeRandomMaze();
     resizeCanvas();
     
