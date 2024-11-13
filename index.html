@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Maze Game</title>
-       <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="maze" width="800" height="800"></canvas>
+    <div class="maze-container">
+        <canvas id="maze"></canvas>
+    </div>
+    <div class="controls">
+        <button id="up">↑</button>
+        <div class="horizontal-controls">
+            <button id="left">←</button>
+            <button id="right">→</button>
+        </div>
+        <button id="down">↓</button>
+    </div>
     <script src="maze.js"></script>
 </body>
 </html>
