@@ -16,6 +16,10 @@ const player = {
 let moveInterval = null;
 const MOVE_DELAY = 100; // Time in milliseconds between moves
 
+let steps = 0;
+let startTime = null;
+let gameTimer = null;
+
 function initMaze(){
     // First fill everything with walls
     for(let i = 0; i < COLUMNS_COUNT; i++){
@@ -63,8 +67,14 @@ function makeRandomMaze(){
 function drawMaze(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw the maze cells
-    ctx.fillStyle = "black";
+    // Fill background with white (path color)
+    ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue('--path-color');
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw walls in black
+    ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue('--wall-color');
     for(let i = 0; i < COLUMNS_COUNT; i++){
         for(let j = 0; j < ROWS_COUNT; j++){
             if(maze[i][j] === 1){
@@ -73,26 +83,34 @@ function drawMaze(){
         }
     }
     
-    // Draw the goal
-    ctx.fillStyle = "green";
-    ctx.fillRect((ROWS_COUNT-2) * CELL_SIZE, (COLUMNS_COUNT-2) * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+    // Draw the goal without blur effect
+    const goalX = (ROWS_COUNT-2) * CELL_SIZE;
+    const goalY = (COLUMNS_COUNT-2) * CELL_SIZE;
+    
+    ctx.fillStyle = '#4CAF50';
+    ctx.fillRect(goalX, goalY, CELL_SIZE, CELL_SIZE);
 }
 
 function drawPlayer(){
-    ctx.beginPath(); 
+    ctx.beginPath();
     ctx.arc(
-        player.x * CELL_SIZE + CELL_SIZE / 2, 
-        player.y * CELL_SIZE + CELL_SIZE / 2, 
-        player.size / 2, 
-        0, 
+        player.x * CELL_SIZE + CELL_SIZE / 2,
+        player.y * CELL_SIZE + CELL_SIZE / 2,
+        player.size / 2,
+        0,
         Math.PI * 2
-    ); 
-    ctx.fillStyle = player.color; 
-    ctx.fill(); 
-    ctx.closePath(); 
+    );
+    ctx.fillStyle = player.color;
+    ctx.fill();
+    ctx.closePath();
 }
 
 function MovePlayer(event){
+    if (!startTime) {
+        startTime = Date.now();
+        gameTimer = setInterval(updateGameInfo, 1000);
+    }
+    
     const {x: prevX, y: prevY} = player;
     
     switch (event.key) {
@@ -115,10 +133,15 @@ function MovePlayer(event){
     if(maze[player.y][player.x] === 1){
         player.x = prevX;
         player.y = prevY;
+    } else if (player.x !== prevX || player.y !== prevY) {
+        steps++;
+        updateGameInfo();
     }
     
     if(player.x === COLUMNS_COUNT-2 && player.y === ROWS_COUNT-2){
-        alert("You won!");
+        clearInterval(gameTimer);
+        const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+        alert(`Congratulations! You won!\nTime: ${timeSpent} seconds\nSteps: ${steps}`);
         location.reload();
     }
     
@@ -188,6 +211,14 @@ function setVH() {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
+function updateGameInfo() {
+    document.getElementById('steps').textContent = steps;
+    if (startTime) {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        document.getElementById('time').textContent = elapsed + 's';
+    }
+}
+
 function init(){
     setVH();
     window.addEventListener('resize', setVH);
@@ -199,6 +230,9 @@ function init(){
     window.addEventListener('resize', resizeCanvas);
     document.addEventListener("keydown", MovePlayer);
     setupTouchControls();
+    
+    // Initialize game info
+    updateGameInfo();
 }
 
 init();
